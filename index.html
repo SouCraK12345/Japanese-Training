@@ -68,9 +68,19 @@
                 const img = new Image();
                 img.src = "images/" + url;
                 document.querySelector("#cache").appendChild(img)
+                img.onload = () => resolve(url);  // 読み込み成功
+                img.onerror = () => reject(url);  // 読み込み失敗
             });
         };
-        cacheImages(images);
+        cacheImages(images)
+            .then(() => {
+                console.log("全ての画像が読み込まれました！");
+                window.requestAnimationFrame(animation);
+                updateImage();
+            })
+            .catch((failedUrl) => {
+                console.error(`画像の読み込みに失敗: ${failedUrl}`);
+            });
         let currentImage = "";
 
         function getRandomImage() {
@@ -110,9 +120,7 @@
             }
             window.requestAnimationFrame(animation);
         }
-        window.requestAnimationFrame(animation);
         document.getElementById("progressBar").style.display = "none";
-        updateImage();
     </script>
 </body>
 
