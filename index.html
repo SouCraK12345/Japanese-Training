@@ -137,6 +137,7 @@ const cacheImages = (urls) => {
 cacheImages(images)
     .then(() => {
         console.log("全ての画像が読み込まれました！");
+        loadingIndicator.style.display = "none";
         window.requestAnimationFrame(animation);
         updateImage();
     })
