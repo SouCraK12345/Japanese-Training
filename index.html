@@ -52,6 +52,27 @@
             color: white;
             font-weight: bold;
         }
+        .rounded-button {
+    background-color: #007bff; /* 青色 */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 8px; /* ちょっと丸い */
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.rounded-button:hover {
+    background-color: #0056b3; /* ホバー時に少し濃く */
+    transform: scale(1.05);
+}
+
+.rounded-button:active {
+    background-color: #00408d;
+    transform: scale(0.98);
+}
+
     </style>
 </head>
 
@@ -66,7 +87,7 @@
     position: absolute;
     right: 0px;
     bottom: 30px;
-" onclick="updateImage()">次</button>
+" onclick="updateImage()" class="rounded-button">次</button>
     <div class="progress-container">
         <div class="progress-bar" id="progressBar"></div>
     </div>
