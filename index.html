@@ -25,7 +25,8 @@
             margin: 5%;
         }
         #imageName {
-            font-size: 120px;
+  font-size: 5vw; /* 画面幅の5% */
+  white-space: nowrap;
             margin-top: 10px;
             display: none;
         }
@@ -77,6 +78,7 @@
 </head>
 
 <body>
+    <div id="loading-indicator"></div>
     <div id="image"></div>
     <div id="imageName"></div>
     <div id="cache"></div>
@@ -113,26 +115,34 @@
         var updatedImage = false;
         const imageNameDiv = document.getElementById("imageName");
         const images = ['ご飯.png', 'ぶどう.png', 'みかん.png', 'りんご.png', 'カメラ.png', 'カーテン.png', 'ギター.png', 'クモの巣.png', 'コンパス.png', 'ゴルフ.png', 'サッカー.png', 'スイカ.png', 'スキー.png', 'スケート.png', 'スマートフォン.png', 'ソファ.png', 'ダイヤモンド.png', 'テニス.png', 'トラック.png', 'トランペット.png', 'ドア.png', 'ノートパソコン.png', 'ハサミ.png', 'バイオリン.png', 'バイク.png', 'バスケットボール.png', 'バドミントン.png', 'バナナ.png', 'パン.png', 'ピアノ.png', 'ベッド.png', 'ベルト.png', 'マイク.png', 'ラジオ.png', 'ロケット.png', '亀.png', '体操.png', '先生.png', '兎.png', '剣.png', '劇場.png', '卓球.png', '台風.png', '図書館.png', '城.png', '大工.png', '太鼓.png', '学校.png', '寺.png', '山.png', '岩.png', '島.png', '川.png', '工場.png', '市場.png', '懐中電灯.png', '手袋.png', '旗.png', '時計.png', '月.png', '望遠鏡.png', '本.png', '本棚.png', '机.png', '村.png', '林.png', '桃.png', '椅子.png', '橋.png', '歌手.png', '気球.png', '海.png', '消防士.png', '港.png', '湖.png', '滝.png', '熊.png', '牛.png', '犬.png', '狐.png', '狼.png', '猫.png', '町.png', '画家.png', '病院.png', '盾.png', '眼鏡.png', '矢.png', '砂漠.png', '神社.png', '空港.png', '窓.png', '竜.png', '笛.png', '紙飛行機.png', '絵本.png', '羊.png', '自転車.png', '船.png', '花畑.png', '草原.jpg', '蛇.png', '蜂.png', '蝶.png', '車.png', '道.png', '都市.png', '野球.png', '金.png', '銀.png', '鍵.png', '鏡.png', '雨.png', '雪.png', '雲.png', '雷.png', '電車.png', '霜.png', '霧.png', '露.png', '靴.png', '靴下.png', '顕微鏡.png', '飛行機.png', '馬.png', '駅.png', '魚.png', '鷹.png', '鹿.png', '龍.png']; // 画像リスト
+const cacheImages = (urls) => {
+    const loadingIndicator = document.getElementById("loading-indicator"); // プログレスバー要素を取得
+    let loadedCount = 0;
+    
+    return Promise.all(urls.map((url) => {
+        return new Promise((resolve, reject) => {
+            const img = new Image();
+            img.src = "images/" + url;
+            img.onload = () => {
+                loadedCount++;
+                loadingIndicator.style.width = (loadedCount / urls.length) * 100 + "%";
+                resolve(url);
+            };  // 読み込み成功
+            img.onerror = () => reject(url);  // 読み込み失敗
+        });
+    }));
+};
 
-        const cacheImages = (urls) => {
-            return Promise.all(urls.map((url) => {
-                return new Promise((resolve, reject) => {
-                    const img = new Image();
-                    img.src = "images/" + url;
-                    img.onload = () => resolve(url);  // 読み込み成功
-                    img.onerror = () => reject(url);  // 読み込み失敗
-                });
-            }));
-        };
-        cacheImages(images)
-            .then(() => {
-                console.log("全ての画像が読み込まれました！");
-                window.requestAnimationFrame(animation);
-                updateImage();
-            })
-            .catch((failedUrl) => {
-                console.error(`画像の読み込みに失敗: ${failedUrl}`);
-            });
+cacheImages(images)
+    .then(() => {
+        console.log("全ての画像が読み込まれました！");
+        window.requestAnimationFrame(animation);
+        updateImage();
+    })
+    .catch((failedUrl) => {
+        console.error(`画像の読み込みに失敗: ${failedUrl}`);
+    });
+
         let currentImage = "";
 
         function getRandomImage() {
