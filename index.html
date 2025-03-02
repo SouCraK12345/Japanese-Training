@@ -108,6 +108,22 @@
         <div class="progress-bar" id="progressBar"></div>
     </div>
     <script>
+        const speakJapanese = (text) => {
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = 'ja-JP'; // 日本語の言語設定
+    utterance.rate = 1.0; // 読み上げ速度 (0.1 ～ 10)
+    utterance.pitch = 1.0; // 声の高さ (0 ～ 2)
+    utterance.volume = 1.0; // 音量 (0 ～ 1)
+
+    // 利用可能な音声のリストを取得して日本語の音声を選択
+    const voices = speechSynthesis.getVoices();
+    const japaneseVoice = voices.find(voice => voice.lang.startsWith('ja'));
+    if (japaneseVoice) {
+        utterance.voice = japaneseVoice;
+    }
+
+    speechSynthesis.speak(utterance);
+};
         if ("serviceWorker" in navigator) {
             navigator.serviceWorker.register("service-worker.js")
                 .then(() => console.log("Service Worker registered"))
@@ -173,7 +189,9 @@ cacheImages(images)
         }
 
         function showImageName() {
+            if(showedImageName){return;}
             showedImageName = true;
+            speakJapanese(currentImage.split(".")[0]);
             if (currentImage) {
                 imageNameDiv.textContent = currentImage.split(".")[0];
                 imageNameDiv.style.display = "block";
