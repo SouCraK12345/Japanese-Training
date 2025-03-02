@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/jpg" href="言語トレーニング.jpg">
     <title>画像切り替え</title>
     <style>
         body {
@@ -124,11 +125,6 @@
 
     speechSynthesis.speak(utterance);
 };
-        if ("serviceWorker" in navigator) {
-            navigator.serviceWorker.register("service-worker.js")
-                .then(() => console.log("Service Worker registered"))
-                .catch(err => console.error("Service Worker registration failed", err));
-        }
 
 
         var starttime = Date.now()
