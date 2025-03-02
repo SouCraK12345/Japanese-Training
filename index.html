@@ -22,10 +22,10 @@
             border-radius: 10px; /* 角を少し丸める */
         }
         #image{
-            margin: 10%;
+            margin: 5%;
         }
         #imageName {
-            font-size: 24px;
+            font-size: 120px;
             margin-top: 10px;
             display: none;
         }
@@ -59,7 +59,14 @@
     <div id="image"></div>
     <div id="imageName"></div>
     <div id="cache"></div>
-
+<button style="
+    width: 100px;
+    height: 50px;
+    font-size: 20px;
+    position: absolute;
+    right: 0px;
+    bottom: 30px;
+" onclick="updateImage()">次</button>
     <div class="progress-container">
         <div class="progress-bar" id="progressBar"></div>
     </div>
