@@ -1,7 +1,7 @@
 {
     "name": "日本語トレーニング",
     "short_name": "Japanese-Training",
-    "start_url": "",
-    "display": "standalone",
+    "start_url": "https://soucrak12345.github.io/Japanese-Training/",
+    "display": "standalone"
   }
   
