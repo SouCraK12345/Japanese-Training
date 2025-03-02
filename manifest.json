@@ -2,14 +2,12 @@
     "name": "日本語トレーニング",
     "short_name": "Japanese-Training",
     "start_url": "https://soucrak12345.github.io/Japanese-Training/",
-    "display": "standalone"
+    "display": "standalone",
     "icons": [
-  {
-    "src": "言語トレーニング.jpg",
-    "sizes": "48x48",
-    "type": "image/jpg"
-  }
-]
-
-  }
-  
+        {
+            "src": "言語トレーニング.jpg",
+            "sizes": "48x48",
+            "type": "image/jpg"
+        }
+    ]
+}
